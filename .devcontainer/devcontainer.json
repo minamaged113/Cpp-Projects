@@ -1,0 +1,30 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "CCPP",
+	"image": "minamaged113/ccpp:3.0.0",
+
+	"remoteUser": "mina",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"twxs.cmake",
+				"ms-vscode.cmake-tools",
+				"ms-vscode.cpptools-extension-pack",
+				"eamodio.gitlens",
+				"donjayamanne.githistory",
+				"asciidoctor.asciidoctor-vscode",
+				"xaver.clang-format",
+				"streetsidesoftware.code-spell-checker",
+				"cschlosser.doxdocgen",
+				"esbenp.prettier-vscode",
+				"Remisa.shellman",
+				"foxundermoon.shell-format"
+			]
+		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.gitconfig,target=/home/mina/.gitconfig,type=bind,ro",
+		"source=${localEnv:HOME}/.ssh,target=/home/mina/.ssh,type=bind"
+	]
+}

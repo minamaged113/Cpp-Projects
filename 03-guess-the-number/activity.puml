@@ -1,0 +1,30 @@
+@startuml guess_the_number_activity
+start
+
+repeat
+label ask_user_input
+:ask user input;
+if (input is number) then (yes)
+    break
+else (no)
+    :clear `cin`
+    error flag;
+    :clear whole buffer
+    until newline;
+    ' goto ask_user_input
+endif
+repeat while ()
+
+:generate number internally;
+:compare number with user input;
+
+if (input == number) then (yes)
+    :print
+    "you win";
+else (no)
+    :print
+    "you lose";
+endif
+
+end
+@enduml

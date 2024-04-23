@@ -20,11 +20,17 @@
 				"esbenp.prettier-vscode",
 				"Remisa.shellman",
 				"foxundermoon.shell-format"
-			]
+			],
+			"settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": { "zsh": { "path": "/bin/zsh" } }
+            }
 		}
 	},
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+	"workspaceFolder": "/workspace",
 	"mounts": [
-		"source=${localEnv:HOME}/.gitconfig,target=/home/mina/.gitconfig,type=bind,ro",
 		"source=${localEnv:HOME}/.ssh,target=/home/mina/.ssh,type=bind"
-	]
+	],
+	"postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 }

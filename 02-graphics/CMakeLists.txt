@@ -9,6 +9,7 @@ project(
     LANGUAGES C CXX
 )
 
+add_subdirectory(point)
 add_subdirectory(tgaimage)
 add_subdirectory(model)
 add_subdirectory(line)
@@ -23,6 +24,7 @@ target_link_libraries(graphics_tiny_renderer
     tgaimage
     model
     line
+    point
 )
 
 target_include_directories(graphics_tiny_renderer

@@ -1,8 +1,9 @@
 #include <iostream>
 
-#include "tgaimage/tgaimage.h"
-#include "model.h"
 #include "line/line.h"
+#include "model.h"
+#include "point/point.h"
+#include "tgaimage/tgaimage.h"
 
 const TGAColor white = TGAColor(255, 255, 255, 255);
 const TGAColor red   = TGAColor(255, 0,   0,   255);
@@ -21,40 +22,34 @@ void line_unoptimized(int x0, int y0, int x1, int y1, TGAImage &image, TGAColor 
 	bool steep = false;
 	int dy = y1-y0;
 	int dx = x1-x0;
-	float abs_slope = std::abs(dy-dx);
+        // float abs_slope = std::abs(dy-dx);
 
-	// Check if width is smaller than height
-	if (std::abs(dx) < std::abs(dy))
-	{
-		std::swap(x0, y0);
-		std::swap(x1, y1);
-		steep = true;
-	}
+        // Check if width is smaller than height
+        if (std::abs(dx) < std::abs(dy)) {
+            std::swap(x0, y0);
+            std::swap(x1, y1);
+            steep = true;
+        }
 
-	// check if given points are reversed
-	// i.e. end point given first
-	// assuming starting point has lower x value
-	// and ending point has hight x value
-	// >> If reversed, reverse them
-	if (x0 > x1)
-	{
-		std::swap(x0, x1);
-		std::swap(y0, y1);
-	}
+        // check if given points are reversed
+        // i.e. end point given first
+        // assuming starting point has lower x value
+        // and ending point has hight x value
+        // >> If reversed, reverse them
+        if (x0 > x1) {
+            std::swap(x0, x1);
+            std::swap(y0, y1);
+        }
 
-	for (int x = x0; x < x1; x++)
-	{
-		float t = (x-x0) / (float)dx;
-		int y = y0 * (1.-t) + y1 * t;
-		if (steep)
-		{
-			image.set(y, x, color);
-		} else {
-			image.set(x, y, color);
-		}
-	}
-	
-	
+        for (int x = x0; x < x1; x++) {
+            float t = (x - x0) / (float)dx;
+            int y = y0 * (1. - t) + y1 * t;
+            if (steep) {
+                image.set(y, x, color);
+            } else {
+                image.set(x, y, color);
+            }
+        }
 }
 
 
@@ -63,14 +58,18 @@ void line_unoptimized(int x0, int y0, int x1, int y1, TGAImage &image, TGAColor 
 void draw_3_lines_and_save()
 {
 	TGAImage image(100, 100, TGAImage::RGB);
-	for (size_t i = 0; i < 1000000; i++)
-	{
-		line(13, 20, 80, 40, image, white); 
-		line(20, 13, 40, 80, image, red); 
-		line(80, 40, 13, 20, image, red);
-	}
-	image.flip_vertically();
-	image.write_tga_file("lines.tga");
+        std::unique_ptr<PointFactory> pointFactory(new CartesianPointFactory());
+        std::unique_ptr<Point> p0 = pointFactory->createPoint(13, 20);
+        std::unique_ptr<Point> p1 = pointFactory->createPoint(80, 40);
+        std::unique_ptr<Point> p2 = pointFactory->createPoint(20, 13);
+        std::unique_ptr<Point> p3 = pointFactory->createPoint(40, 80);
+        for (size_t i = 0; i < 1000000; i++) {
+            line(*p0, *p1, image, white);
+            line(*p2, *p3, image, red);
+            line(*p1, *p0, image, red);
+        }
+        image.flip_vertically();
+        image.write_tga_file("lines.tga");
 }
 
 int main(int argc, char** argv) {
@@ -86,9 +85,9 @@ int main(int argc, char** argv) {
 	const int height = 800;
 	
 	TGAImage image(width, height, TGAImage::RGB);
+        std::unique_ptr<PointFactory> pointFactory(new CartesianPointFactory());
 
-
-    for (int i=0; i<model->nfaces(); i++) {
+        for (int i = 0; i < model->nfaces(); i++) {
         std::vector<int> face = model->face(i);
         for (int j=0; j<3; j++) {
             Vec3f v0 = model->vert(face[j]);
@@ -97,7 +96,9 @@ int main(int argc, char** argv) {
             int y0 = (v0.y+1.)*height/2.;
             int x1 = (v1.x+1.)*width/2.;
             int y1 = (v1.y+1.)*height/2.;
-            line(x0, y0, x1, y1, image, white);
+            std::unique_ptr<Point> p0 = pointFactory->createPoint(x0, y0);
+            std::unique_ptr<Point> p1 = pointFactory->createPoint(x1, y1);
+            line(*p0, *p1, image, white);
         }
     }
 

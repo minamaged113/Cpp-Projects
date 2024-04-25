@@ -1,6 +1,10 @@
 #ifndef __GEOMETRY_H__
 #define __GEOMETRY_H__
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wgnu-anonymous-struct"
+#pragma GCC diagnostic ignored "-Wnested-anon-types"
+
 #include <cmath>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,5 +55,7 @@ template <class t> std::ostream& operator<<(std::ostream& s, Vec3<t>& v) {
 	s << "(" << v.x << ", " << v.y << ", " << v.z << ")\n";
 	return s;
 }
+
+#pragma GCC diagnostic pop
 
 #endif //__GEOMETRY_H__

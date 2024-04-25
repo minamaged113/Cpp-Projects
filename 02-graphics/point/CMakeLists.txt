@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 
 set(TARGET "point")
+set(POINT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include
+    CACHE INTERNAL "POINT_HEADERS")
+
 add_library(${TARGET}
     src/point.cpp
 )
@@ -28,8 +31,6 @@ target_include_directories(${TARGET}_test
     include
 )
 
-message(STATUS "${TARGET}: " ${TARGET}_test)
-message(STATUS "${GTEST_BOTH_LIBRARIES}: " ${GTEST_BOTH_LIBRARIES})
 # Link Google Test to the executable
 target_link_libraries(${TARGET}_test
     PRIVATE

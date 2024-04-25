@@ -1,6 +1,10 @@
 #ifndef __IMAGE_H__
 #define __IMAGE_H__
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wgnu-anonymous-struct"
+#pragma GCC diagnostic ignored "-Wnested-anon-types"
+
 #include <fstream>
 
 #pragma pack(push,1)
@@ -92,5 +96,7 @@ public:
 	unsigned char *buffer();
 	void clear();
 };
+
+#pragma GCC diagnostic pop
 
 #endif //__IMAGE_H__

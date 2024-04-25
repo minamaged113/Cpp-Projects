@@ -1,5 +1,5 @@
 {
-    "cmake.sourceDirectory": "/workspaces/Cpp-Projects/03-guess-the-number",
+    "cmake.sourceDirectory": "/workspaces/Cpp-Projects",
     "files.associations": {
         "*.tcc": "cpp",
         "array": "cpp",
@@ -46,7 +46,15 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "any": "cpp",
+        "ctime": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "optional": "cpp",
+        "iomanip": "cpp",
+        "cinttypes": "cpp",
+        "variant": "cpp"
     },
     "cSpell.words": [
         "IWYU"

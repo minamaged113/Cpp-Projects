@@ -27,8 +27,6 @@
             }
 		}
 	},
-	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-	"workspaceFolder": "/workspace",
 	"mounts": [
 		"source=${localEnv:HOME}/.ssh,target=/home/mina/.ssh,type=bind"
 	],

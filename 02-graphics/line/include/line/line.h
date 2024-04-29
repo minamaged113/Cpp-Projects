@@ -4,6 +4,6 @@
 #include "point/point.h"
 #include "tgaimage/tgaimage.h"
 
-void line(Point p0, Point p1, TGAImage &image, TGAColor color);
+void line(Point<int> p0, Point<int> p1, TGAImage &image, TGAColor color);
 
 #endif // __LINE_H__

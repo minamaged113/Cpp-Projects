@@ -2,7 +2,7 @@
 
 #include "line/line.h"
 
-void line(Point p0, Point p1, TGAImage &image, TGAColor color) {
+void line(Point<int> p0, Point<int> p1, TGAImage &image, TGAColor color) {
     bool steep = false;
 
     if (std::abs(p1.x - p0.x) < std::abs(p1.y - p0.y)) {

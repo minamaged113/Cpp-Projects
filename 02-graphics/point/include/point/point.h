@@ -16,60 +16,66 @@
 #include <memory>
 
 // Point abstract product
+template<typename T>
 struct Point {
-    float x;   // x-coordinate
-    float y;   // y-coordinate
-    float r;   // polar radius
-    float a;   // polar angle (radians)
-    float __a; // polar angle (degrees)
+    T x;   // x-coordinate
+    T y;   // y-coordinate
+    T r;   // polar radius
+    T a;   // polar angle (radians)
+    T __a; // polar angle (degrees)
 
     // Every abstract class has to have a virtual destructor (default)
     virtual ~Point() = default;
 };
 
 // CartesianPoint concrete product
-struct CartesianPoint : public Point {
+template<typename T>
+struct CartesianPoint : public Point<T> {
     /**
      * @brief Construct a new Cartesian Point object
      *
      * @param x coordinate
      * @param y coordinate
      */
-    CartesianPoint(float x, float y);
+    CartesianPoint(T x, T y);
 };
 
 // PolarDegreePoint concrete product
-struct PolarDegreePoint : public Point {
+template<typename T>
+struct PolarDegreePoint : public Point<T> {
     /**
      * @brief Construct a new Polar Degree Point object
      *
      * @param r radius
      * @param a angle in degrees
      */
-    PolarDegreePoint(float r, float a);
+    PolarDegreePoint(T r, T a);
 };
 
 // PolarRadiansPoint concrete product
-struct PolarRadiansPoint : public Point {
+template<typename T>
+struct PolarRadiansPoint : public Point<T> {
     /**
      * @brief Construct a new Polar Radians Point object
      *
      * @param r radius
      * @param a angle in radians
      */
-    PolarRadiansPoint(float r, float a);
+    PolarRadiansPoint(T r, T a);
 };
 
 // Point abstract factory
+template<typename T>
 struct PointFactory {
-    virtual std::unique_ptr<Point> createPoint(float u, float v) const = 0;
+    virtual std::unique_ptr<Point<T>> createPoint(T u, T v) const = 0;
 
     // Every abstract class has to have a virtual destructor
     virtual ~PointFactory() = default;
 };
 
 // CartesianPoint concrete factory
-struct CartesianPointFactory : public PointFactory {
+template<typename T>
+struct CartesianPointFactory : public PointFactory<T> {
     /**
      * @brief Create a Point object
      *
@@ -77,11 +83,12 @@ struct CartesianPointFactory : public PointFactory {
      * @param y coordinate
      * @return std::unique_ptr<Point>
      */
-    std::unique_ptr<Point> createPoint(float x, float y) const override;
+    std::unique_ptr<Point<T>> createPoint(T x, T y) const override;
 };
 
 // PolarRadiansPoint concrete factory
-struct PolarRadiansPointFactory : public PointFactory {
+template<typename T>
+struct PolarRadiansPointFactory : public PointFactory<T> {
     /**
      * @brief Create a Point object
      *
@@ -89,11 +96,12 @@ struct PolarRadiansPointFactory : public PointFactory {
      * @param a angle in radians
      * @return std::unique_ptr<Point>
      */
-    std::unique_ptr<Point> createPoint(float r, float a) const override;
+    std::unique_ptr<Point<T>> createPoint(T r, T a) const override;
 };
 
 // PolarDegreePointFactory concrete factory
-struct PolarDegreePointFactory : public PointFactory {
+template<typename T>
+struct PolarDegreePointFactory : public PointFactory<T> {
     /**
      * @brief Create a Point object
      *
@@ -101,7 +109,7 @@ struct PolarDegreePointFactory : public PointFactory {
      * @param a angle in degrees
      * @return std::unique_ptr<Point>
      */
-    std::unique_ptr<Point> createPoint(float r, float a) const override;
+    std::unique_ptr<Point<T>> createPoint(T r, T a) const override;
 };
 
 #endif // __POINT_H__

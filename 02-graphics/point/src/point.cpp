@@ -11,14 +11,14 @@
 
 #include "point/point.h"
 
-CartesianPoint::CartesianPoint(float x, float y) {
+template <typename T> CartesianPoint<T>::CartesianPoint(T x, T y) {
     this->x = x;
     this->y = y;
-    this->r = (float)sqrt((double)(x * x + y * y));
-    this->a = (float)atan((double)(y / x)); // angle in radians
+    this->r = (T)sqrt((double)(x * x + y * y));
+    this->a = (T)atan((double)(y / x)); // angle in radians
 }
 
-PolarDegreePoint::PolarDegreePoint(float r, float a) {
+template <typename T> PolarDegreePoint<T>::PolarDegreePoint(T r, T a) {
     this->r = r;
     this->a = a * (M_PI / 180);
     this->__a = a;
@@ -26,7 +26,7 @@ PolarDegreePoint::PolarDegreePoint(float r, float a) {
     this->y = r * sin(this->a);
 }
 
-PolarRadiansPoint::PolarRadiansPoint(float r, float a) {
+template <typename T> PolarRadiansPoint<T>::PolarRadiansPoint(T r, T a) {
     this->r = r;
     this->a = a;
     this->__a = a * (180 / M_PI);
@@ -34,17 +34,20 @@ PolarRadiansPoint::PolarRadiansPoint(float r, float a) {
     this->y = r * sin(this->a);
 }
 
-std::unique_ptr<Point> CartesianPointFactory::createPoint(float x,
-                                                          float y) const {
-    return std::unique_ptr<Point>(new CartesianPoint(x, y));
+template <typename T>
+std::unique_ptr<Point<T>> CartesianPointFactory<T>::createPoint(T x,
+                                                                T y) const {
+    return std::unique_ptr<Point<T>>(new CartesianPoint<T>(x, y));
 }
 
-std::unique_ptr<Point> PolarRadiansPointFactory::createPoint(float r,
-                                                             float a) const {
-    return std::unique_ptr<Point>(new PolarRadiansPoint(r, a));
+template <typename T>
+std::unique_ptr<Point<T>> PolarRadiansPointFactory<T>::createPoint(T r,
+                                                                   T a) const {
+    return std::unique_ptr<Point<T>>(new PolarRadiansPoint<T>(r, a));
 }
 
-std::unique_ptr<Point> PolarDegreePointFactory::createPoint(float r,
-                                                            float a) const {
-    return std::unique_ptr<Point>(new PolarDegreePoint(r, a));
+template <typename T>
+std::unique_ptr<Point<T>> PolarDegreePointFactory<T>::createPoint(T r,
+                                                                  T a) const {
+    return std::unique_ptr<Point<T>>(new PolarDegreePoint<T>(r, a));
 }

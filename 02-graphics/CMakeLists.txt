@@ -10,9 +10,9 @@ project(
 )
 
 add_subdirectory(point)
+add_subdirectory(line)
 add_subdirectory(tgaimage)
 add_subdirectory(model)
-add_subdirectory(line)
 
 add_executable(
     graphics_tiny_renderer

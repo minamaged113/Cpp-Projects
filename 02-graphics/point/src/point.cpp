@@ -10,6 +10,12 @@
  */
 
 #include "point/point.h"
+template struct PointFactory<int>;
+template struct PointFactory<float>;
+template struct CartesianPointFactory<int>;
+template struct CartesianPointFactory<float>;
+template struct PolarRadiansPointFactory<float>;
+template struct PolarDegreePointFactory<float>;
 
 template <typename T> CartesianPoint<T>::CartesianPoint(T x, T y) {
     this->x = x;

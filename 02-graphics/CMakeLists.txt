@@ -24,13 +24,13 @@ target_link_libraries(graphics_tiny_renderer
     tgaimage
     model
     line
-    point
 )
 
 target_include_directories(graphics_tiny_renderer
     PUBLIC
     ${TGA_IMAGE_HEADERS}
     ${LINE_HEADERS}
+    ${POINT_HEADERS}
     model
 )
 

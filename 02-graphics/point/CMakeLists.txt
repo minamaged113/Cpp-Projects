@@ -4,21 +4,6 @@ set(TARGET "point")
 set(POINT_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/include
 CACHE INTERNAL "POINT_HEADERS")
 
-add_library(${TARGET}
-src/point.cpp
-)
-
-# Specify the required C++ features
-target_compile_features(${TARGET}
-PRIVATE
-cxx_std_14
-)
-
-target_include_directories(${TARGET}
-PUBLIC
-include
-)
-
 #### Gtest
 # Add test executable
 add_executable(${TARGET}_test
@@ -35,7 +20,6 @@ include
 message(STATUS "TARGET: " ${TARGET})
 target_link_libraries(${TARGET}_test
 PRIVATE
-    ${TARGET}
     ${GTEST_BOTH_LIBRARIES}
     pthread
 )

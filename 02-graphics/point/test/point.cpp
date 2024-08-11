@@ -1,6 +1,11 @@
 #include "point/point.h"
 #include <gtest/gtest.h>
 
+template struct PointFactory<float>;
+template struct CartesianPointFactory<float>;
+template struct PolarRadiansPointFactory<float>;
+template struct PolarDegreePointFactory<float>;
+
 TEST(point, create_point_w_CartesianPointFactory) {
     float epsilon = 0.0001;
     std::unique_ptr<PointFactory<float>> pointFactory(

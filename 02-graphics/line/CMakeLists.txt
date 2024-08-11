@@ -11,7 +11,6 @@ add_library(${TARGET}
 
 target_link_libraries(${TARGET}
     PUBLIC
-    point
     tgaimage
 )
 

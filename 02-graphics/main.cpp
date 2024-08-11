@@ -7,6 +7,8 @@
 
 const TGAColor white = TGAColor(255, 255, 255, 255);
 const TGAColor red = TGAColor(255, 0, 0, 255);
+template struct PointFactory<int>;
+template struct CartesianPointFactory<int>;
 
 void draw_red_dot_and_save() {
     TGAImage image(100, 100, TGAImage::RGB);

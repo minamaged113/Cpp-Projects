@@ -37,7 +37,12 @@ struct CartesianPoint : public Point<T> {
      * @param x coordinate
      * @param y coordinate
      */
-    CartesianPoint(T x, T y);
+    CartesianPoint(T x, T y) {
+        this->x = x;
+        this->y = y;
+        this->r = (T)sqrt((double)(x * x + y * y));
+        this->a = (T)atan((double)(y / x)); // angle in radians
+    }
 };
 
 // PolarDegreePoint concrete product
@@ -49,7 +54,13 @@ struct PolarDegreePoint : public Point<T> {
      * @param r radius
      * @param a angle in degrees
      */
-    PolarDegreePoint(T r, T a);
+    PolarDegreePoint(T r, T a) {
+        this->r = r;
+        this->a = a * (M_PI / 180);
+        this->__a = a;
+        this->x = r * cos(this->a);
+        this->y = r * sin(this->a);
+    }
 };
 
 // PolarRadiansPoint concrete product
@@ -61,7 +72,13 @@ struct PolarRadiansPoint : public Point<T> {
      * @param r radius
      * @param a angle in radians
      */
-    PolarRadiansPoint(T r, T a);
+    PolarRadiansPoint(T r, T a) {
+        this->r = r;
+        this->a = a;
+        this->__a = a * (180 / M_PI);
+        this->x = r * cos(this->a);
+        this->y = r * sin(this->a);
+    }
 };
 
 // Point abstract factory
@@ -83,7 +100,9 @@ struct CartesianPointFactory : public PointFactory<T> {
      * @param y coordinate
      * @return std::unique_ptr<Point>
      */
-    std::unique_ptr<Point<T>> createPoint(T x, T y) const override;
+    std::unique_ptr<Point<T>> createPoint(T x, T y) const override {
+        return std::unique_ptr<Point<T>>(new CartesianPoint<T>(x, y));
+    }
 };
 
 // PolarRadiansPoint concrete factory
@@ -96,7 +115,9 @@ struct PolarRadiansPointFactory : public PointFactory<T> {
      * @param a angle in radians
      * @return std::unique_ptr<Point>
      */
-    std::unique_ptr<Point<T>> createPoint(T r, T a) const override;
+    std::unique_ptr<Point<T>> createPoint(T r, T a) const override {
+        return std::unique_ptr<Point<T>>(new PolarRadiansPoint<T>(r, a));
+    }
 };
 
 // PolarDegreePointFactory concrete factory
@@ -109,7 +130,9 @@ struct PolarDegreePointFactory : public PointFactory<T> {
      * @param a angle in degrees
      * @return std::unique_ptr<Point>
      */
-    std::unique_ptr<Point<T>> createPoint(T r, T a) const override;
+    std::unique_ptr<Point<T>> createPoint(T r, T a) const override {
+        return std::unique_ptr<Point<T>>(new PolarDegreePoint<T>(r, a));
+    }
 };
 
 #endif // __POINT_H__

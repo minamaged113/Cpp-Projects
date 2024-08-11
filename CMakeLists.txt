@@ -22,3 +22,4 @@ endif()
 
 add_subdirectory(02-graphics)
 add_subdirectory(03-guess)
+add_subdirectory(04-timer)
